@@ -1,0 +1,13 @@
+LocalStack/mi_volumen
+LocalStack/.env
+venv/
+
+# Ignorar todo en terraform-docker-container
+terraform-container/*
+
+# Permitir específicamente
+!terraform-container/modules
+!terraform-container/main.tf
+!terraform-container/outputs.tf
+!terraform-container/terraform.tfvars
+!terraform-container/variables.tf
