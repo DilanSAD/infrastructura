@@ -3,8 +3,7 @@ LocalStack/.env
 venv/
 
 terraform.tfstate
-
-# Ignorar todo en terraform-docker-container
+# Ignorar todo en terraform-container
 terraform-container/*
 
 
