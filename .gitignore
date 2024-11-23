@@ -2,8 +2,11 @@ LocalStack/mi_volumen
 LocalStack/.env
 venv/
 
+terraform.tfstate
+
 # Ignorar todo en terraform-docker-container
 terraform-container/*
+
 
 # Permitir específicamente
 !terraform-container/modules
