@@ -15,7 +15,7 @@ provider "aws" {
   region                      = "us-east-1" # Región por defecto
   s3_use_path_style           = true
   skip_credentials_validation = true # Evita la validación de credenciales
-  skip_metadata_api_check     = true # Omite la validación de la instancia EC2
+  # skip_metadata_api_check     = true # Omite la validación de la instancia EC2
   skip_requesting_account_id  = true # Evita consultar el ID de la cuenta de AWS
   endpoints {
     s3       = "http://localhost:4566" # Endpoint para S3 en LocalStack

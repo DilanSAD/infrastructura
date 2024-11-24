@@ -8,12 +8,14 @@ services:
     environment:
       # Configuración básica
       - DEBUG=${DEBUG:-0} # Habilitar logs de depuración (0 por defecto)
-      - AWS_ACCESS_KEY_ID=test # Credenciales ficticias para local
-      - AWS_SECRET_ACCESS_KEY=test
-      - AWS_DEFAULT_REGION=us-east-1 # Región por defecto
-      - SERVICES=s3,dynamodb,ec2 # Habilitar solo los servicios necesarios
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} # Credenciales ficticias para local
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} # Región por defecto
+      - SERVICES=s3,dynamodb,ec2,vpc,lambda,apigateway,elb,iam,sqs,sns, # Habilitar solo los servicios necesarios
       # Opcionales
       # - LOCALSTACK_API_KEY=xxx          # Para características premium, si aplica
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./mi_volumen}:/var/lib/localstack" # Volumen persistente
       - "/var/run/docker.sock:/var/run/docker.sock" # Soporte para Lambda y otros servicios dependientes de Docker
+    env_file:
+      - .env

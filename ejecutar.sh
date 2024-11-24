@@ -1,55 +1,101 @@
 #!/bin/bash
 
-# Nombre por defecto del entorno virtual
+# ============================
+# Colores y estilos ANSI
+# ============================
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+CYAN='\033[1;36m'
+BOLD='\033[1m'
+RESET='\033[0m' # Restablecer color y estilo
+
+# ============================
+# Funciones Utilitarias
+# ============================
+
+# Imprimir un separador visual
+print_separator() {
+  echo -e "${CYAN}========================================${RESET}"
+}
+
+# Encabezado para secciones
+header() {
+  echo -e "${BLUE}${BOLD} --- $1${RESET}"
+}
+
+# Mensaje de advertencia
+warning_message() {
+  echo -e "${YELLOW}${BOLD}! $1${RESET}"
+}
+
+# Mensaje de éxito
+success_message() {
+  echo -e "${GREEN}${BOLD} --- ✔ $1${RESET}"
+}
+
+# Mensaje de error
+error_message() {
+  echo -e "${RED}${BOLD} --- Error:${RESET} $1"
+}
+
+# Manejar errores y salir
+error_exit() {
+  error_message "$1"
+  exit 1
+}
+
+# ============================
+# Flujo Principal del Script
+# ============================
+
+# Limpiar la pantalla
+clear
+print_separator
+header "Iniciando configuración del entorno virtual"
+
+# Definir el nombre del entorno virtual
 ENV_NAME="venv"
-# Verificar si se proporcionó un argumento para usarlo como nombre de entorno
 if [ "$#" -eq 1 ]; then
   ENV_NAME="$1"
 fi
-# Verificar si el entorno virtual ya existe
+
+# Crear o verificar el entorno virtual
 if [ -d "$ENV_NAME" ]; then
-  echo " --- El entorno virtual '$ENV_NAME' ya existe"
+  success_message "El entorno virtual '$ENV_NAME' ya existe"
 else
-  # Crear el entorno virtual
-  python -m venv "$ENV_NAME"
-  echo " --- Entorno virtual '$ENV_NAME' creado correctamente"
+  python -m venv "$ENV_NAME" || error_exit "No se pudo crear el entorno virtual '$ENV_NAME'"
+  success_message "Entorno virtual '$ENV_NAME' creado correctamente"
 fi
 
 # Activar el entorno virtual
+header "Activando el entorno virtual"
 if [ -f "$ENV_NAME/bin/activate" ]; then
-  # Desde Bash en Unix/Linux
   source "$ENV_NAME/bin/activate"
 elif [ -f "$ENV_NAME/Scripts/activate" ]; then
-  # Desde Bash en Windows
   source "$ENV_NAME/Scripts/activate"
 else
-  echo " --- Error: No se pudo encontrar el script de activación"
-  exit 1
+  error_exit "No se pudo encontrar el script de activación para el entorno virtual"
 fi
+success_message "Entorno virtual activado"
 
-# Instalar las dependencias
+# Instalar dependencias
+header "Instalando dependencias desde 'requirements.txt'"
 if [ -f "requirements.txt" ]; then
-  echo " --- Comenzando la instalación de las dependencias de requirements dentro del entorno virtual"
-  pip install -r requirements.txt
+  pip install -r requirements.txt || error_exit "Error al instalar las dependencias"
+  success_message "Dependencias instaladas correctamente"
 else
-  echo " --- El archivo requirements.txt no se encontró"
-  exit 1
+  error_exit "El archivo 'requirements.txt' no se encontró"
 fi
 
+# Iniciar el contenedor de LocalStack
+header "Iniciando el contenedor de LocalStack"
+cd LocalStack || error_exit "Directorio 'LocalStack' no encontrado. Saliendo"
+docker-compose up -d || error_exit "Error al iniciar el contenedor de LocalStack"
+success_message "Contenedor de LocalStack iniciado correctamente"
 
-: 'Activa el entorno virtual (esto depende del shell que estés usando)
-Ejemplos de comandos
-  cmd
-    venv\Scripts\activate
-    venv\Scripts\deactivate
-  bash
-    source venv/Scripts/activate
-    deactivate
-'
+# Finalizar
+print_separator
+success_message "El entorno virtual y LocalStack están listos"
 
-# Iniciar el contenedor de localstack
-echo " --- Iniciando el contenedor de LocalStack"
-cd LocalStack || { echo "Directorio LocalStack no encontrado. Saliendo."; exit 1; }
-docker-compose up -d
-# Espera un momento para que los los servicios de LocalStack se inicien
-sleep 15

@@ -1,0 +1,143 @@
+## Collection types
+
+# list una colección ordenada de valores
+["valor1", "valor2", "valor3"]
+# map una colección de pares clave-valor
+{ clave1 = "valor1", clave2 = "valor2" }
+# set una colección no ordenada de valores únicos
+toset(["valor1", "valor2", "valor1"]) # Resultado: {"valor1", "valor2"}
+
+## Built-In Functions
+
+# Numeric Functions
+abs(number): Devuelve el valor absoluto
+abs(-5) # Resultado: 5
+
+ceil(number): Redondea hacia arriba.
+ceil(2.3) # Resultado: 3
+
+floor(number): Redondea hacia abajo.
+floor(2.7) # Resultado: 2
+
+log(base, number): Logaritmo de un número en la base dada.
+log(10, 100) # Resultado: 2
+
+max(numbers...): Devuelve el mayor valor.
+max(1, 5, 3) # Resultado: 5
+
+min(numbers...): Devuelve el menor valor.
+min(1, 5, 3) # Resultado: 1
+
+parseint(string, base): Convierte un string en un número entero.
+parseint("2A", 16) # Resultado: 42
+
+pow(base, exponent): Calcula la potencia de un número.
+pow(2, 3) # Resultado: 8
+
+signum(number): Devuelve el signo de un número (-1, 0, 1).
+signum(-5) # Resultado: -1
+
+sqrt(number): Calcula la raíz cuadrada.
+sqrt(16) # Resultado: 4
+
+floor, log
+
+# String Functions
+chomp(string): Elimina un salto de línea final, si existe.
+chomp("hello\n") # Resultado: "hello"
+
+format(format, args...): Crea un string formateado.
+format("Hello, %s!", "World") # Resultado: "Hello, World!"
+
+join(delimiter, list): Une una lista en un string con un delimitador.
+join(", ", ["a", "b", "c"]) # Resultado: "a, b, c"
+
+lower(string): Convierte a minúsculas.
+lower("HELLO") # Resultado: "hello"
+
+split(delimiter, string): Divide un string en una lista usando un delimitador.
+split(", ", "a, b, c") # Resultado: ["a", "b", "c"]
+
+trimspace(string): Elimina espacios al principio y al final.
+trimspace("  hello  ") # Resultado: "hello"
+
+upper(string): Convierte a mayúsculas.
+upper("hello") # Resultado: "HELLO"
+
+formatlist
+indent
+regex
+regexall
+replace
+strrev
+substr
+Title
+trimprefix
+trimsuffix
+trimspace
+upper
+
+
+# Collection Functions
+
+alltrue(list): Devuelve true si todos los elementos son verdaderos.
+alltrue([true, true, false]) # Resultado: false
+
+anytrue(list): Devuelve true si algún elemento es verdadero.
+anytrue([false, true, false]) # Resultado: true
+
+contains(collection, value): Comprueba si un valor está en la colección.
+contains(["a", "b", "c"], "b") # Resultado: true
+
+keys(map): Devuelve las claves de un mapa.
+keys({a = 1, b = 2}) # Resultado: ["a", "b"]
+
+values(map): Devuelve los valores de un mapa.
+values({a = 1, b = 2}) # Resultado: [1, 2]
+
+length(collection): Devuelve el número de elementos.
+length(["a", "b"]) # Resultado: 2
+
+merge(maps...): Combina varios mapas.
+merge({a = 1}, {b = 2}) # Resultado: {a = 1, b = 2}
+
+sort(list): Ordena una lista.
+sort(["c", "a", "b"]) # Resultado: ["a", "b", "c"]
+
+alltrue
+anytrue
+chuncklist
+coalesce
+coalescelist
+compact
+concat
+contains
+distinct
+element
+index
+flatten
+keys
+length
+
+Lookup
+
+merge
+one
+range
+reserve
+setintesection
+setproduct
+
+
+# Encoding Functions
+base64decode(string): Decodifica un string Base64.
+base64decode("SGVsbG8=") # Resultado: "Hello"
+
+base64encode(string): Codifica un string a Base64.
+base64encode("Hello") # Resultado: "SGVsbG8="
+
+jsondecode(string): Convierte un JSON en un mapa.
+jsondecode('{"a":1}') # Resultado: {a = 1}
+
+jsonencode(value): Convierte un valor a JSON.
+jsonencode({a = 1}) # Resultado: '{"a":1}'
