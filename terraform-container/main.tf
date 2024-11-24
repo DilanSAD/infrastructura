@@ -25,27 +25,23 @@ provider "aws" {
 }
 
 module "ec2" {
-  source        = "./modules/ec2"  # Ruta relativa al módulo
-  ami           = "ami-0abcdef1234567890" # ID ficticio
-  instance_type = "t2.micro"
-  name          = "localstack-ec2"
+  source        = "./modules/ec2"
+  ami           = var.ami
+  instance_type = var.instance_type
+  name          = var.instance_name
 }
-
 
 module "s3" {
   source      = "./modules/s3"
-  bucket_name = "localstack-bucket"
-  tags = {
-    Environment = "LocalStack"
-  }
+  bucket_name = var.bucket_name
+  tags        = var.tags
 }
 
 module "dynamodb" {
   source        = "./modules/dynamodb"
-  table_name    = "localstack-dynamodb"
-  hash_key      = "id"
-  hash_key_type = "S"
-  tags = {
-    Environment = "LocalStack"
-  }
+  table_name    = var.table_name
+  hash_key      = var.hash_key
+  hash_key_type = var.hash_key_type
+  tags          = var.tags
 }
+

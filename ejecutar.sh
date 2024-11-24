@@ -8,7 +8,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[1;34m'
 CYAN='\033[1;36m'
-BOLD='\033[1m'
+BOLD='\033[1m' # Negrilla
 RESET='\033[0m' # Restablecer color y estilo
 
 # ============================
@@ -37,7 +37,7 @@ success_message() {
 
 # Mensaje de error
 error_message() {
-  echo -e "${RED}${BOLD} --- Error:${RESET} $1"
+  echo -e "${RED}${BOLD} --- Error: $1${RESET}"
 }
 
 # Manejar errores y salir
@@ -55,7 +55,7 @@ clear
 print_separator
 header "Iniciando configuración del entorno virtual"
 
-# Definir el nombre del entorno virtual
+# Definir el nombre del entorno virtual, si no se pasa un nombre para el entorno por parámetro es venv por defecto
 ENV_NAME="venv"
 if [ "$#" -eq 1 ]; then
   ENV_NAME="$1"
