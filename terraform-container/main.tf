@@ -16,7 +16,7 @@ provider "aws" {
   s3_use_path_style           = true
   skip_credentials_validation = true # Evita la validación de credenciales
   # skip_metadata_api_check     = true # Omite la validación de la instancia EC2
-  skip_requesting_account_id  = true # Evita consultar el ID de la cuenta de AWS
+  skip_requesting_account_id = true # Evita consultar el ID de la cuenta de AWS
   endpoints {
     s3       = "http://localhost:4566" # Endpoint para S3 en LocalStack
     dynamodb = "http://localhost:4566" # Endpoint para DynamoDB en LocalStack
@@ -28,13 +28,14 @@ module "ec2" {
   source        = "./modules/ec2"
   ami           = var.ami
   instance_type = var.instance_type
-  name          = var.instance_name
+  tags_ec2      = var.tags_ec2
+  instance_name = var.instance_name # Pasando el nombre lógico
 }
 
 module "s3" {
   source      = "./modules/s3"
   bucket_name = var.bucket_name
-  tags        = var.tags
+  tags_s3     = var.tags_s3
 }
 
 module "dynamodb" {
@@ -42,6 +43,5 @@ module "dynamodb" {
   table_name    = var.table_name
   hash_key      = var.hash_key
   hash_key_type = var.hash_key_type
-  tags          = var.tags
+  tags_dynamodb = var.tags_dynamodb
 }
-

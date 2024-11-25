@@ -1,34 +1,41 @@
 variable "aws_access_key" {
   description = "AWS Access Key"
   type        = string
-  sensitive   = true
 }
 
 variable "aws_secret_key" {
   description = "AWS Secret Key"
   type        = string
-  sensitive   = true
 }
 
 variable "ami" {
-  description = "AMI ID para EC2"
+  description = "AMI ID para la instancia EC2"
   type        = string
 }
 
 variable "instance_type" {
-  description = "Tipo de instancia EC2"
+  description = "Tipo de instancia EC2 (e.g., t2.micro, t3.small, etc.)"
   type        = string
-  default     = "t2.micro"
 }
 
 variable "instance_name" {
-  description = "Nombre de la instancia EC2"
+  description = "Nombre lógico de la instancia EC2 (para la etiqueta 'Name')"
   type        = string
+}
+
+variable "tags_ec2" {
+  description = "Etiquetas para la instancia EC2"
+  type        = map(string)
 }
 
 variable "bucket_name" {
   description = "Nombre del bucket S3"
   type        = string
+}
+
+variable "tags_s3" {
+  description = "Etiquetas para el bucket S3"
+  type        = map(string)
 }
 
 variable "table_name" {
@@ -47,7 +54,7 @@ variable "hash_key_type" {
   default     = "S"
 }
 
-variable "tags" {
-  description = "Etiquetas comunes para los recursos"
+variable "tags_dynamodb" {
+  description = "Etiquetas para la tabla DynamoDB"
   type        = map(string)
 }

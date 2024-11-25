@@ -4,7 +4,7 @@ variable "table_name" {
 }
 
 variable "hash_key" {
-  description = "Clave principal de la tabla"
+  description = "Clave principal de la tabla DynamoDB"
   type        = string
 }
 
@@ -14,8 +14,8 @@ variable "hash_key_type" {
   default     = "S"
 }
 
-variable "tags" {
-  description = "Etiquetas para la tabla"
+variable "tags_dynamodb" {
+  description = "Etiquetas adicionales para la tabla DynamoDB"
   type        = map(string)
   default     = {}
 }

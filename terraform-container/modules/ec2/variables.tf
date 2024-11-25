@@ -1,16 +1,20 @@
 variable "ami" {
   description = "AMI ID para la instancia EC2"
   type        = string
-  default     = "ami-0abcdef1234567890"  # ID ficticio para LocalStack
 }
 
 variable "instance_type" {
-  description = "Tipo de instancia EC2"
+  description = "Tipo de instancia EC2 (e.g., t2.micro, t3.small, etc.)"
   type        = string
-  default     = "t2.micro"
 }
 
-variable "name" {
-  description = "Nombre de la instancia EC2"
+variable "tags_ec2" {
+  description = "Etiquetas generales para la instancia EC2"
+  type        = map(string)
+  default     = {}
+}
+
+variable "instance_name" {
+  description = "Nombre lógico de la instancia EC2 (para la etiqueta 'Name')"
   type        = string
 }

@@ -1,31 +1,16 @@
-# Crear el bucket S3
-resource "aws_s3_bucket" "bucket" {
-  bucket = var.bucket_name
-  tags   = var.tags
+resource "aws_s3_bucket" "example" {
+  bucket = var.bucket_name # Nombre del bucket S3
+
+  tags = merge(
+    var.tags_s3,               # Etiquetas personalizadas
+    { Name = var.bucket_name } # Etiqueta "Name" para identificar el bucket
+  )
 }
 
-# Asignar una política al bucket S3
-resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = aws_s3_bucket.bucket.bucket
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect    = "Deny",
-        Principal = "*",
-        Action    = "s3:*",
-        Resource  = [
-          "arn:aws:s3:::${aws_s3_bucket.bucket.bucket}",
-          "arn:aws:s3:::${aws_s3_bucket.bucket.bucket}/*"
-        ],
-        Condition = {
-          Bool: {
-            "aws:SecureTransport": "false"
-          }
-        }
-      }
-    ]
-  })
+resource "aws_s3_bucket_public_access_block" "example" {
+  bucket                  = aws_s3_bucket.example.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
-
