@@ -7,6 +7,7 @@ terraform-container/*
 # Permitir específicamente
 !terraform-container/environments
 !terraform-container/modules
+!terraform-container/backend.tf
 !terraform-container/main.tf
 !terraform-container/notes.txt
 !terraform-container/outputs.tf

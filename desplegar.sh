@@ -58,6 +58,17 @@ else
   error_exit "Opción no válida. Saliendo."
 fi
 
+# Configurar el backend para el entorno específico
+backend_config="-backend-config=path=states/${environment}/terraform.tfstate"
+
+# Crear directorio de estados si no existe
+mkdir -p "states/${environment}"
+
+# Reinicializar Terraform con el backend específico del entorno
+header "Reinicializando Terraform para el entorno ${environment}"
+terraform init -reconfigure $backend_config || error_exit "La reinicialización de Terraform falló."
+success_message "Terraform reinicializado para el entorno ${environment}"
+
 # Previsualización del plan de Terraform
 print_separator
 header "Generando plan de Terraform para el entorno '$environment'"
