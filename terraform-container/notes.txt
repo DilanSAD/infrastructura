@@ -40,8 +40,6 @@ signum(-5) # Resultado: -1
 sqrt(number): Calcula la raíz cuadrada.
 sqrt(16) # Resultado: 4
 
-floor, log
-
 # String Functions
 chomp(string): Elimina un salto de línea final, si existe.
 chomp("hello\n") # Resultado: "hello"
@@ -49,14 +47,38 @@ chomp("hello\n") # Resultado: "hello"
 format(format, args...): Crea un string formateado.
 format("Hello, %s!", "World") # Resultado: "Hello, World!"
 
+formatlist(format, args...): Crea una lista de strings formateados.
+formatlist("Hello %s!", ["John", "Jane"]) # Resultado: ["Hello John!", "Hello Jane!"]
+
+indent(num_spaces, string): Añade espacios al principio de cada línea.
+indent(2, "line1\nline2") # Resultado: "  line1\n  line2"
+
 join(delimiter, list): Une una lista en un string con un delimitador.
 join(", ", ["a", "b", "c"]) # Resultado: "a, b, c"
 
 lower(string): Convierte a minúsculas.
 lower("HELLO") # Resultado: "hello"
 
+regex(pattern, string): Busca coincidencias usando expresiones regulares.
+regex("[a-z]+", "123abc456") # Resultado: "abc"
+
+regexall(pattern, string): Encuentra todas las coincidencias.
+regexall("[0-9]+", "abc123def456") # Resultado: ["123", "456"]
+
+replace(string, substr, newstr): Reemplaza todas las ocurrencias.
+replace("Hello World", "World", "Terraform") # Resultado: "Hello Terraform"
+
 split(delimiter, string): Divide un string en una lista usando un delimitador.
 split(", ", "a, b, c") # Resultado: ["a", "b", "c"]
+
+strrev(string): Invierte un string.
+strrev("hello") # Resultado: "olleh"
+
+substr(string, offset, length): Extrae una parte del string.
+substr("hello", 1, 3) # Resultado: "ell"
+
+title(string): Convierte a formato título.
+title("hello world") # Resultado: "Hello World"
 
 trimspace(string): Elimina espacios al principio y al final.
 trimspace("  hello  ") # Resultado: "hello"
@@ -64,70 +86,48 @@ trimspace("  hello  ") # Resultado: "hello"
 upper(string): Convierte a mayúsculas.
 upper("hello") # Resultado: "HELLO"
 
-formatlist
-indent
-regex
-regexall
-replace
-strrev
-substr
-Title
-trimprefix
-trimsuffix
-trimspace
-upper
-
-
 # Collection Functions
-
 alltrue(list): Devuelve true si todos los elementos son verdaderos.
 alltrue([true, true, false]) # Resultado: false
 
 anytrue(list): Devuelve true si algún elemento es verdadero.
 anytrue([false, true, false]) # Resultado: true
 
+chunklist(list, chunk_size): Divide una lista en sublistas del tamaño especificado.
+chunklist(["a", "b", "c", "d"], 2) # Resultado: [["a", "b"], ["c", "d"]]
+
+coalesce(vals...): Retorna el primer valor no nulo.
+coalesce(null, "", "hello") # Resultado: "hello"
+
+coalescelist(lists...): Retorna la primera lista no vacía.
+coalescelist([], [], ["a", "b"]) # Resultado: ["a", "b"]
+
+compact(list): Elimina elementos vacíos o nulos de una lista.
+compact(["", "a", null, "b"]) # Resultado: ["a", "b"]
+
+concat(lists...): Combina múltiples listas.
+concat(["a"], ["b", "c"]) # Resultado: ["a", "b", "c"]
+
 contains(collection, value): Comprueba si un valor está en la colección.
 contains(["a", "b", "c"], "b") # Resultado: true
 
-keys(map): Devuelve las claves de un mapa.
-keys({a = 1, b = 2}) # Resultado: ["a", "b"]
+distinct(list): Elimina duplicados de una lista.
+distinct(["a", "b", "a"]) # Resultado: ["a", "b"]
 
-values(map): Devuelve los valores de un mapa.
-values({a = 1, b = 2}) # Resultado: [1, 2]
+flatten(list): Aplana una lista de listas en una sola lista.
+flatten([[1], [2, 3]]) # Resultado: [1, 2, 3]
 
-length(collection): Devuelve el número de elementos.
-length(["a", "b"]) # Resultado: 2
+lookup(map, key, default): Busca un valor en un mapa con valor por defecto.
+lookup({a = 1}, "b", 0) # Resultado: 0
 
 merge(maps...): Combina varios mapas.
 merge({a = 1}, {b = 2}) # Resultado: {a = 1, b = 2}
 
-sort(list): Ordena una lista.
-sort(["c", "a", "b"]) # Resultado: ["a", "b", "c"]
+setintersection(sets...): Encuentra elementos comunes entre conjuntos.
+setintersection(["a", "b"], ["b", "c"]) # Resultado: ["b"]
 
-alltrue
-anytrue
-chuncklist
-coalesce
-coalescelist
-compact
-concat
-contains
-distinct
-element
-index
-flatten
-keys
-length
-
-Lookup
-
-merge
-one
-range
-reserve
-setintesection
-setproduct
-
+setproduct(sets...): Calcula el producto cartesiano de conjuntos.
+setproduct(["a"], ["1", "2"]) # Resultado: [["a", "1"], ["a", "2"]]
 
 # Encoding Functions
 base64decode(string): Decodifica un string Base64.
@@ -141,3 +141,14 @@ jsondecode('{"a":1}') # Resultado: {a = 1}
 
 jsonencode(value): Convierte un valor a JSON.
 jsonencode({a = 1}) # Resultado: '{"a":1}'
+
+# File Functions
+file(path): Lee el contenido de un archivo.
+fileexists(path): Verifica si existe un archivo.
+filebase64(path): Lee un archivo y lo codifica en base64.
+templatefile(path, vars): Procesa un archivo como plantilla.
+
+# IP Network Functions
+cidrhost(prefix, hostnum): Calcula una dirección IP dentro de un CIDR.
+cidrnetmask(prefix): Obtiene la máscara de red de un CIDR.
+cidrsubnet(prefix, newbits, netnum): Calcula una subred dentro de un CIDR.

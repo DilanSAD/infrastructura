@@ -1,6 +1,6 @@
 ami           = "ami-prod-789"
 instance_name = "prod-ec2"
-instance_type = "t3.micro"
+instance_type = "t3.large"
 bucket_name   = "prod-bucket"
 table_name    = "prod-table"
 hash_key      = "prod-id"

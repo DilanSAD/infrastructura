@@ -15,7 +15,7 @@ services:
       # Opcionales
       # - LOCALSTACK_API_KEY=xxx          # Para características premium, si aplica
     volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./mi_volumen}:/var/lib/localstack" # Volumen persistente
+      - "${LOCALSTACK_VOLUME_DIR}:/var/lib/localstack" # Volumen persistente
       - "/var/run/docker.sock:/var/run/docker.sock" # Soporte para Lambda y otros servicios dependientes de Docker
     env_file:
       - .env

@@ -1,6 +1,6 @@
 ami           = "ami-qa-456"
 instance_name = "qa-ec2"
-instance_type = "t2.micro"
+instance_type = "t2.medium"
 bucket_name   = "qa-bucket"
 table_name    = "qa-table"
 hash_key      = "qa-id"
