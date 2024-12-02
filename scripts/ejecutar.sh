@@ -3,6 +3,9 @@
 # Incluir funciones comunes
 source ./utils.sh
 
+# Moverse un nivel arriba
+cd .. || exit 1
+
 # ============================
 # Flujo Principal del Script
 # ============================

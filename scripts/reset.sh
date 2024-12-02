@@ -3,6 +3,9 @@
 # Incluir funciones comunes
 source ./utils.sh
 
+# Moverse un nivel arriba
+cd .. || exit 1
+
 # Listar entornos disponibles dinámicamente
 list_environments() {
   echo -e "${CYAN}Entornos disponibles:${RESET}"
